@@ -286,7 +286,10 @@
         "APP_REVIEW_DEMO_ACCOUNTS",
         "SSO_LOGIN_ENABLED",
         "UNSUBSCRIBE_WORKER_URL",
-        "UNSUBSCRIBE_WORKER_SECRET"
+        "UNSUBSCRIBE_WORKER_SECRET",
+        "NEXT_PUBLIC_ENABLE_IMAP",
+        "IMAP_ALLOWED_HOSTS",
+        "NODE_EXTRA_CA_CERTS"
       ],
       "outputs": [".next/**", "!.next/cache/**", "public/sw.js", "public/sw.js.map"]
     },
@@ -415,7 +418,10 @@
         "APP_REVIEW_DEMO_ACCOUNTS",
         "SSO_LOGIN_ENABLED",
         "UNSUBSCRIBE_WORKER_URL",
-        "UNSUBSCRIBE_WORKER_SECRET"
+        "UNSUBSCRIBE_WORKER_SECRET",
+        "NEXT_PUBLIC_ENABLE_IMAP",
+        "IMAP_ALLOWED_HOSTS",
+        "NODE_EXTRA_CA_CERTS"
       ],
       "outputs": [".next/**", "!.next/cache/**", "public/sw.js", "public/sw.js.map"]
     },

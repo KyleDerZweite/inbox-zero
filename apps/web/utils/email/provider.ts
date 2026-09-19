@@ -1,3 +1,5 @@
+import { ImapProvider } from "@/utils/email/imap";
+import { getImapCredentials } from "@/utils/imap/credential";
 import {
   getGmailClientForEmail,
   getOutlookClientForEmail,
@@ -31,6 +33,10 @@ export async function createEmailProvider({
       source: "create-email-provider",
     });
 
+    if (rateLimitProvider === "imap") {
+      return new ImapProvider(await getImapCredentials(emailAccountId), logger);
+    }
+
     if (rateLimitProvider === "google") {
       const client = await getGmailClientForEmail({ emailAccountId, logger });
       return withProviderFailureLogging(
@@ -51,13 +57,15 @@ export async function createEmailProvider({
       provider: rateLimitProvider,
       source: "create-email-provider",
     });
-    await recordProviderIssueSafely({
-      emailAccountId,
-      provider: rateLimitProvider,
-      error,
-      logger,
-      operation: "createEmailProvider",
-    });
+    if (rateLimitProvider !== "imap") {
+      await recordProviderIssueSafely({
+        emailAccountId,
+        provider: rateLimitProvider,
+        error,
+        logger,
+        operation: "createEmailProvider",
+      });
+    }
     await flushLoggerSafely(logger, {
       action: "createEmailProvider",
       flushReason: "provider-create-error",

@@ -1,3 +1,5 @@
+> Personal Proton Bridge testing branch: see [LOCAL-TESTING.md](LOCAL-TESTING.md) for setup, provenance and limitations.
+
 [![](apps/web/app/opengraph-image.jpg)](https://www.getinboxzero.com)
 
 <p align="center">

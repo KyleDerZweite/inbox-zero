@@ -61,6 +61,7 @@ const parsedEnv = createEnv({
       z.string().url().optional(),
     ),
 
+    IMAP_ALLOWED_HOSTS: z.string().default("127.0.0.1,localhost"),
     AUTH_SECRET: z.string().optional(),
     SCIM_CREDENTIAL_HASH_SECRET: z.string().min(32).optional(),
     NEXTAUTH_SECRET: z.string().optional(),
@@ -386,6 +387,7 @@ const parsedEnv = createEnv({
     UNSUBSCRIBE_WORKER_SECRET: z.string().min(32).optional(),
   },
   client: {
+    NEXT_PUBLIC_ENABLE_IMAP: booleanString.optional().default(false),
     // stripe
     NEXT_PUBLIC_STRIPE_BUSINESS_MONTHLY_PRICE_ID: z.string().optional(),
     NEXT_PUBLIC_STRIPE_BUSINESS_ANNUALLY_PRICE_ID: z.string().optional(),
@@ -486,6 +488,7 @@ const parsedEnv = createEnv({
   },
   // For Next.js >= 13.4.4, you only need to destructure client variables:
   experimental__runtimeEnv: {
+    NEXT_PUBLIC_ENABLE_IMAP: process.env.NEXT_PUBLIC_ENABLE_IMAP,
     // stripe
     NEXT_PUBLIC_STRIPE_BUSINESS_MONTHLY_PRICE_ID:
       process.env.NEXT_PUBLIC_STRIPE_BUSINESS_MONTHLY_PRICE_ID,

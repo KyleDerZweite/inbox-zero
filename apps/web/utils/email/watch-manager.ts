@@ -11,7 +11,10 @@ import { captureException, isInvalidGrantError } from "@/utils/error";
 import { cleanupInvalidTokens } from "@/utils/auth/cleanup-invalid-tokens";
 import type { EmailProvider } from "@/utils/email/types";
 import { createManagedOutlookSubscription } from "@/utils/outlook/subscription-manager";
-import { isMicrosoftProvider } from "@/utils/email/provider-types";
+import {
+  isImapProvider,
+  isMicrosoftProvider,
+} from "@/utils/email/provider-types";
 import { logErrorWithDedupe } from "@/utils/log-error-with-dedupe";
 import { clearWatchLapsedErrorIfResolved } from "@/utils/error-messages";
 
@@ -156,6 +159,12 @@ async function watchEmailAccount(
       });
     }
 
+    return null;
+  }
+
+  // Background IMAP automation is not implemented in the local prototype.
+  if (isImapProvider(account?.provider)) {
+    logger.info("Background watch is unavailable for IMAP accounts");
     return null;
   }
 

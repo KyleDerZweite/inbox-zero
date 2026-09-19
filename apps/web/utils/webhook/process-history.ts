@@ -1,5 +1,6 @@
 import {
   isGoogleProvider,
+  isImapProvider,
   isMicrosoftProvider,
 } from "@/utils/email/provider-types";
 import type { Logger } from "@/utils/logger";
@@ -76,6 +77,13 @@ export async function processProviderHistory({
           logger,
         }));
     return;
+  }
+
+  // IMAP history processing is not implemented in the local prototype.
+  if (isImapProvider(provider)) {
+    throw new Error(
+      "Background history processing is unavailable for IMAP accounts",
+    );
   }
 
   throw new Error(`Unsupported provider: ${provider}`);

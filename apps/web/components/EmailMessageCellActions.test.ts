@@ -60,3 +60,13 @@ describe("getEmailMessageCellActions", () => {
     ).toBeNull();
   });
 });
+
+it("does not build a Gmail link from an IMAP identifier", () => {
+  expect(
+    getEmailMessageCellActions({
+      provider: "imap",
+      messageId: "imap:opaque",
+      threadId: "imap-thread:opaque",
+    }),
+  ).toBeNull();
+});

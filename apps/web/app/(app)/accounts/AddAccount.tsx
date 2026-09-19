@@ -1,5 +1,7 @@
 "use client";
 
+import { AddImapAccountForm } from "./AddImapAccountForm";
+import { env } from "@/env";
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -77,6 +79,7 @@ export function AddAccount({
         </Button>
       </div>
 
+      {env.NEXT_PUBLIC_ENABLE_IMAP && <AddImapAccountForm />}
       <MutedText>{helperText}</MutedText>
     </div>
   );

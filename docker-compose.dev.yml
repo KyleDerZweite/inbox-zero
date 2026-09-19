@@ -16,14 +16,14 @@ services:
     volumes:
       - dev-database-data:/var/lib/postgresql/data
     ports:
-      - ${POSTGRES_PORT:-5432}:5432
+      - 127.0.0.1:${POSTGRES_PORT:-5432}:5432
     restart: unless-stopped
 
   redis:
     image: redis:7
     container_name: inbox-zero-dev-redis
     ports:
-      - ${REDIS_PORT:-6380}:6379
+      - 127.0.0.1:${REDIS_PORT:-6380}:6379
     volumes:
       - dev-redis-data:/data
     restart: unless-stopped
@@ -32,7 +32,7 @@ services:
     image: hiett/serverless-redis-http:latest
     container_name: inbox-zero-dev-redis-http
     ports:
-      - "${REDIS_HTTP_PORT:-8079}:80"
+      - "127.0.0.1:${REDIS_HTTP_PORT:-8079}:80"
     environment:
       SRH_MODE: env
       SRH_TOKEN: ${UPSTASH_REDIS_TOKEN:-dev_token}

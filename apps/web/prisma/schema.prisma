@@ -12,24 +12,25 @@ generator client {
 // Account, User, Session, and VerificationToken based on: https://authjs.dev/reference/adapter/prisma
 model Account {
   password              String?
-  id                    String        @id @default(cuid())
-  createdAt             DateTime      @default(now())
-  updatedAt             DateTime      @updatedAt
+  id                    String          @id @default(cuid())
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
   userId                String
   provider              String
-  type                  String        @default("oidc") // next-auth deprecated field
+  type                  String          @default("oidc") // next-auth deprecated field
   providerAccountId     String
-  refresh_token         String?       @db.Text
+  refresh_token         String?         @db.Text
   refreshTokenExpiresAt DateTime?
-  access_token          String?       @db.Text
-  expires_at            DateTime?     @default(now())
+  access_token          String?         @db.Text
+  expires_at            DateTime?       @default(now())
   disconnectedAt        DateTime? // When OAuth tokens were invalidated (password change, revoked access)
   token_type            String?
   scope                 String?
-  id_token              String?       @db.Text
+  id_token              String?         @db.Text
   session_state         String?
-  user                  User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                  User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   emailAccount          EmailAccount?
+  imapCredential        ImapCredential?
 
   @@unique([provider, providerAccountId])
   @@index([userId])
@@ -2727,4 +2728,18 @@ model ScimIdentityLink {
 
   @@unique([connectionId, externalId])
   @@index([userId])
+}
+
+model ImapCredential {
+  id           String  @id @default(cuid())
+  accountId    String  @unique
+  account      Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  imapHost     String
+  imapPort     Int
+  imapSecurity String
+  smtpHost     String
+  smtpPort     Int
+  smtpSecurity String
+  username     String
+  password     String  @db.Text
 }
